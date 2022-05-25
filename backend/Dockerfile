@@ -4,7 +4,7 @@ LABEL version="0.0.1"
 
 # Packages needed to get Rails running in Alpine.
 ENV BUILD_PACKAGES="build-base" \
-    DEV_PACKAGES="tzdata" \
+    DEV_PACKAGES="tzdata less" \
     DB_PACKAGES="postgresql-dev postgresql-client"
 
 # -U, --update-cache    Update the repository cache
