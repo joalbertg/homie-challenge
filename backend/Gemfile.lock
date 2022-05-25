@@ -303,7 +303,7 @@ GEM
       thor (~> 1.0)
       tilt (~> 2.0)
       yard (~> 0.9, >= 0.9.24)
-    spring (2.1.1)
+    spring (4.0.0)
     strscan (3.0.3)
     thor (1.2.1)
     tilt (2.0.10)
@@ -360,7 +360,7 @@ DEPENDENCIES
   rubocop-rspec (~> 2.10)
   rubocop-thread_safety (~> 0.4.4)
   solargraph (~> 0.45.0)
-  spring (~> 2.1)
+  spring (~> 4.0)
   vcr (~> 6.1)
   webmock (~> 3.14)
 
