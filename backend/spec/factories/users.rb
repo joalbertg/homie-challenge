@@ -2,12 +2,12 @@
 
 FactoryBot.define do
   factory :user do
-    login { 'MyString' }
-    id { '' }
-    url { 'MyString' }
-    name { 'MyString' }
-    email { 'MyString' }
-    avatar_url { 'MyString' }
-    repositories { '' }
+    login { 'octocat' }
+    github_id { 583231 }
+    url { 'https://api.github.com/users/octocat' }
+    name { 'The Octocat' }
+    email { 'octocat@github.com' }
+    avatar_url { 'https://avatars.githubusercontent.com/u/583231?v=4' }
+    repositories { [] }
   end
 end
