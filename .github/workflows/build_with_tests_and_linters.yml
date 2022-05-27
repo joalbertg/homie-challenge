@@ -92,22 +92,22 @@ jobs:
         run: |
           bundle exec rspec
 
-  # deploy:
-  #   if: ${{ github.ref == 'refs/heads/master' }}
-  #   needs: [lint, tests]
-  #   name: deploy to heroku
-  #   runs-on: ubuntu-20.04
+  deploy:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: [lint, tests]
+    name: deploy to heroku
+    runs-on: ubuntu-20.04
 
-  #   steps:
-  #     - name: check out code
-  #       uses: actions/checkout@v3
-  #       with:
-  #         fetch-depth: 1
-  #     - name: Deploy to Heroku
-  #       uses: AkhileshNS/heroku-deploy@v3.12.12
-  #       with:
-  #         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-  #         heroku_app_name: ${{secrets.HEROKU_API_APP}}
-  #         heroku_email: ${{secrets.HEROKU_API_EMAIL}}
-  #         healthcheck: "https://${{secrets.HEROKU_API_APP}}.herokuapp.com/health_check"
-  #         rollbackonhealthcheckfailed: true
+    steps:
+      - name: check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - name: Deploy to Heroku
+        uses: AkhileshNS/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_API_APP}}
+          heroku_email: ${{secrets.HEROKU_API_EMAIL}}
+          healthcheck: "https://${{secrets.HEROKU_API_APP}}.herokuapp.com/health_check"
+          rollbackonhealthcheckfailed: true
