@@ -26,13 +26,6 @@ module Api
 
           response.payload
         end
-
-        def connection
-          response = HttpClient.call(token: Figaro.env.GITHUB_TOKEN)
-          raise(resul.error) unless response.success?
-
-          response.payload
-        end
       end
     end
   end
