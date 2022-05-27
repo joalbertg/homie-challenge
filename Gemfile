@@ -30,7 +30,7 @@ gem 'faraday', '~> 1.0'
 gem 'faraday_middleware', '~> 1.0'
 
 # Background Jobs
-# gem 'sidekiq', '~> 6.2', '>= 6.2.1'
+gem 'sidekiq', '~> 6.4', '>= 6.4.1'
 # gem 'sidekiq_alive', '~> 2.1', '>= 2.0.6'
 # gem 'sidekiq-cron', '~> 1.2'
 # gem 'sidekiq-failures', '~> 1.0'
