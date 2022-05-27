@@ -8,6 +8,5 @@ FactoryBot.define do
     name { 'The Octocat' }
     email { 'octocat@github.com' }
     avatar_url { 'https://avatars.githubusercontent.com/u/583231?v=4' }
-    repositories { [] }
   end
 end
