@@ -38,7 +38,7 @@ jobs:
           reporter: github-pr-review
           fail_on_error: true
           filter_mode: diff_context
-          level: error
+          level: warning
 
   tests:
     needs: [avoid_redundancy]
