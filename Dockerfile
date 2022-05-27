@@ -1,32 +1,44 @@
-FROM ruby:3.0.2-slim AS backend-builder
-ENV RAILS_ENV production
-ENV NODE_ENV development
-WORKDIR /usr/src/app
+FROM ruby:3.1.1-alpine as dev-build
+LABEL maintainer="Joalbert Andrés González <joalbertgonzalez@gmail.com>"
+LABEL version="0.0.1"
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y build-essential git libpq-dev nodejs npm --no-install-recommends && apt-get clean && npm install -g yarn
+# Packages needed to get Rails running in Alpine.
+ENV BUILD_PACKAGES="build-base" \
+    DEV_PACKAGES="tzdata less" \
+    DB_PACKAGES="postgresql-dev postgresql-client"
 
-COPY backend/Gemfile backend/Gemfile.lock /usr/src/app/
-ARG BUNDLE_RUBYGEMS__PKG__GITHUB__COM
-RUN bundle config set deployment 'true' && bundle install
+# -U, --update-cache    Update the repository cache
+# and install dependencies
+RUN apk add --update-cache \
+    $BUILD_PACKAGES \
+    $DEV_PACKAGES \
+    $DB_PACKAGES \
+    && rm -rf /var/cache/apk/*
 
-FROM ruby:3.0.2-slim
+# Configure the main working directory. This is the base
+# directory used in any further RUN, COPY, and ENTRYPOINT
+# commands.
+WORKDIR /myapp
+# Copy the Gemfile as well as the Gemfile.lock and install
+# the RubyGems. This is a separate step so the dependencies
+# will be cached unless changes to one of those two files
+# are made.
+COPY Gemfile* /myapp/
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+# Prevent bundler warnings; ensure that the bundler version
+# executed is >= that which created Gemfile.lock
+RUN gem install bundler
+RUN bundle install --jobs 20 --retry 5
 
-ENV RAILS_ENV production
-ENV RAILS_SERVE_STATIC_FILES true
-ENV RAILS_LOG_TO_STDOUT true
+# Add a script to be executed every time the container starts.
+# the entrypoint is a script to fix a Rails-specific issue that
+# prevents the server from restarting when a certain server.pid file pre-exists.
+COPY /docker-entrypoints/entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y postgresql-client git curl --no-install-recommends && apt-get clean
-
-COPY backend/Gemfile backend/Gemfile.lock /usr/src/app/
-COPY --from=backend-builder /usr/src/app/vendor/bundle /usr/src/app/vendor/bundle
-RUN bundle config set deployment 'true' && bundle install
-COPY backend/. /usr/src/app/
-
+# Expose the applications port to the host machine
 EXPOSE 3000
-RUN apt-get update && apt-get upgrade -y && apt-get clean
-RUN bundle exec rails --version
-ENTRYPOINT [ "/usr/src/app/bin/bundle" ]
-CMD ["exec", "rails", "server", "-b", "0.0.0.0"]
+
+# Start the main process.
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]

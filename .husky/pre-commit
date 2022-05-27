@@ -1,4 +1,0 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-BUNDLE_GEMFILE="$(dirname "$0")/../backend/Gemfile" yarn lint-staged && cd frontend && yarn lint-staged && cd ../e2e_tests && yarn lint-staged

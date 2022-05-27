@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Api::V1::Users', type: :request do
   describe 'GET /index' do
-    it 'gets profile for yknx4' do
+    xit 'gets profile for yknx4' do
       get api_v1_users_path, params: { username: 'yknx4' }
       body = JSON.parse(response.body)
       expect(response).to have_http_status(200)

@@ -1,47 +1,33 @@
-version: "3.9"
+version: '3'
 services:
   db:
-    image: postgres:13-alpine
+    image: postgres:14.2-alpine
+    env_file: ./docker-env/.env.pg
     volumes:
-      - db-volume:/var/lib/postgresql/data/pgdata
-    restart: always
+      # if you need persistent data, point data to local folder
+      - ./tmp/db:/var/lib/postgresql/data
+  api:
+    build:
+      context: .
+      target: dev-build
+    env_file: ./docker-env/.env
+    command: >
+      sh -c "rm -f tmp/pids/server.pid &&
+      bundle exec rails server -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/myapp
     ports:
-      - 5432:5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      PGDATA: /var/lib/postgresql/data/pgdata
-
-  # es:
-  #   image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
-  #   restart: always
-  #   ports:
-  #     - 9200:9200
-  #     - 9300:9300
-  #   environment:
-  #     discovery.type: single-node
-  #     xpack.security.enabled: "false"
-  #     xpack.monitoring.enabled: "false"
-  #     bootstrap.memory_lock: "true"
-  #     ES_JAVA_OPTS: -Xms512m -Xmx512m
-  #   ulimits:
-  #     memlock:
-  #       soft: -1
-  #       hard: -1
-  #     nofile: 65536
-  #   volumes:
-  #     - es-volume:/usr/share/elasticsearch/data
-
+      - "3000:3000"
+    depends_on:
+      - db
+      # - redis
+    tty: true
+    stdin_open: true
   # redis:
-  #   image: redis:5
-  #   restart: always
-  #   privileged: true
+  #   image: 'redis:7.0-rc-alpine'
+  #   env_file: ./docker-env/.env
+  #   command: sh -c "redis-server"
   #   ports:
-  #     - 6379:6379
+  #     - '6379:6379'
   #   volumes:
-  #     - redis-volume:/data
-
-volumes:
-  db-volume:
-  # es-volume:
-  # redis-volume:
+  #     - '.:/var/lib/redis/data'
