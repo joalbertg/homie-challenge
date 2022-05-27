@@ -27,8 +27,7 @@ module Api
             url: params[:url],
             name: params[:name],
             email: params[:email],
-            avatar_url: params[:avatar_url],
-            repositories: params[:repositories]
+            avatar_url: params[:avatar_url]
           )
         end
       end
