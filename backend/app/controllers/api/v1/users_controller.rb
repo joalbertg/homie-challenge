@@ -3,28 +3,17 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      def index
-        conn = Faraday.new do |f|
-          f.request :authorization, 'Bearer', Figaro.env.GITHUB_TOKEN
-          f.request :json # encode req bodies as JSON
-          f.request :retry # retry transient failures
-          f.response :follow_redirects # follow redirects
-          f.response :json # decode response bodies as JSON
-        end
-        user = conn.get("https://api.github.com/user?user=#{user_params}").body
-        repos = conn.get("https://api.github.com/user/repos?user=#{user_params}", { per_page: 100 }).body
-        db_user = User.all.find { |u| u.github_id == user['id'] }
-        if db_user.nil?
-          db_user = User.create({ github_id: user['id'], login: user['login'], url: user['html_url'], name: user['name'],
-                                  email: user['email'], avatar_url: user['avatar_url'], repositories: repos })
-        end
-        render json: db_user.as_json.except('repositories')
+      def show
+        response = Users::FindOrCreateUseCase.call(username: user_params)
+        db_user = response.payload if response.success?
+
+        render json: db_user.as_json
       end
 
       private
 
       def user_params
-        params.require(:username)
+        params.require(:id)
       end
     end
   end

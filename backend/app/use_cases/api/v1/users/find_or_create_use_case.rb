@@ -8,7 +8,6 @@ module Api
           super()
 
           @params = params
-          @github_user = params[:github_user]
         end
 
         def call
@@ -22,10 +21,18 @@ module Api
         attr_reader :params, :github_user
 
         def find_or_create_user
+          @github_user = find_github_user
           user = find_user
           return user unless user.nil?
 
           create_user
+        end
+
+        def find_github_user
+          response = Users::FindUseCase.call(username: params[:username])
+          raise(response.error) unless response.success?
+
+          response.payload
         end
 
         def find_user
