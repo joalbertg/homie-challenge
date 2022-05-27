@@ -1,3 +1,5 @@
+[![Continuous Integration](https://github.com/joalbertg/homie-challenge/actions/workflows/build_with_tests_and_linters.yml/badge.svg?branch=main)](https://github.com/joalbertg/homie-challenge/actions/workflows/build_with_tests_and_linters.yml)
+
 # README
 
 This README would normally document whatever steps are necessary to get the
