@@ -21,7 +21,10 @@ module Api
         attr_reader :params
 
         def find_user
-          User.find_by(github_id: params[:github_id])
+          response = FindQuery.call { |user| user.params = { **params } }
+          raise(response.error) unless response.success?
+
+          response.payload
         end
       end
     end

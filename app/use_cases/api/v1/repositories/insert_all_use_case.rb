@@ -9,6 +9,8 @@ module Api
 
           @params = params
           @user = params[:user]
+          @records = []
+          @page = 1
         end
 
         def call
@@ -19,15 +21,21 @@ module Api
 
         private
 
-        attr_reader :params, :user
+        attr_reader :params, :user, :records, :page
 
         def insert_all_repositories
-          github_repositories = search_repositories
-          repositories = build_records(github_repositories)
-          response = InsertAllService.call(user: user.login, repositories:)
-          raise(response.error) unless response.success?
+          loop do
+            github_repositories = search_repositories
+            break if github_repositories.empty?
 
-          response.payload
+            repositories = build_records(github_repositories)
+            response = InsertAllService.call(user: user.login, repositories:)
+            raise(response.error) unless response.success?
+
+            @page += 1
+            records << response.payload
+          end
+          records
         end
 
         def search_repositories
@@ -35,8 +43,8 @@ module Api
             connection:,
             username: user.login,
             options: {
-              per_page: 2,
-              page: 1,
+              per_page: 100,
+              page:,
               sort: 'updated'
             }
           )
