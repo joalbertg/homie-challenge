@@ -21,8 +21,8 @@ module Api
         attr_reader :params
 
         def find_user
-          response = Github::FindUserService.call(connection: , username: params[:username])
-          reise(response.error) unless response.success?
+          response = Github::FindUserService.call(connection:, username: params[:username])
+          raise(response.error) unless response.success?
 
           response.payload
         end
