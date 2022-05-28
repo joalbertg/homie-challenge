@@ -15,8 +15,14 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users, only: :show do
-        resources :repositories, only: :index
+        resources :repositories, only: :index do
+          collection do
+            get :search
+          end
+        end
       end
+
+      get 'repositories/search'
     end
   end
 end

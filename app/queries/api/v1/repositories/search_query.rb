@@ -16,7 +16,7 @@ module Api
         end
 
         def call
-          response(success: true, payload: find_user)
+          response(success: true, payload: search_repositories)
         rescue
           response(error: StandardError.new(self))
         end
@@ -25,9 +25,10 @@ module Api
 
         attr_reader :scope
 
-        def find_user
+        def search_repositories
           @scope = with_name
           @scope = with_full_name
+          @scope = with_user_id
           scope
         end
 
@@ -39,7 +40,7 @@ module Api
           name = params[:name]
 
           return scope unless name
-          return scope.or(Repository.with_name(name)) if has_where?
+          return scope.or(Repository.with_full_name(name)) if has_where?
 
           scope.with_name(name)
         end
@@ -51,6 +52,13 @@ module Api
           return scope.or(Repository.with_full_name(full_name)) if has_where?
 
           scope.with_full_name(full_name)
+        end
+
+        def with_user_id
+          user_id = params[:user_id]
+          return scope unless user_id
+
+          scope.joins(:user).with_user_id(user_id)
         end
       end
     end
