@@ -3,7 +3,7 @@
 module Api
   module V1
     module Github
-      class FindUserService < V1::ApplicationService
+      class FindUserService < ApplicationService
         def initialize(params)
           super()
 

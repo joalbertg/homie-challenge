@@ -3,7 +3,7 @@
 module Api
   module V1
     module Github
-      class SearchRepositoriesService < V1::ApplicationService
+      class SearchRepositoriesService < ApplicationService
         def initialize(params)
           super()
 

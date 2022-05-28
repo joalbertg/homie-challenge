@@ -3,7 +3,7 @@
 module Api
   module V1
     module Repositories
-      class InsertAllService < V1::ApplicationService
+      class InsertAllService < ApplicationService
         def initialize(params)
           super()
 

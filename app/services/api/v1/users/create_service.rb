@@ -3,7 +3,7 @@
 module Api
   module V1
     module Users
-      class CreateService < V1::ApplicationService
+      class CreateService < ApplicationService
         def initialize(params)
           super()
 
