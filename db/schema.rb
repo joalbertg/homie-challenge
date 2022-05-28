@@ -35,6 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_27_032836) do
     t.uuid "user_id", null: false, comment: "user reference column"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["repository_id"], name: "index_repositories_on_repository_id", unique: true
     t.index ["user_id"], name: "index_repositories_on_user_id"
   end
 
@@ -47,8 +48,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_27_032836) do
     t.string "avatar_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
+    t.index ["login"], name: "index_users_on_login", unique: true
   end
 
   add_foreign_key "repositories", "users"

@@ -22,6 +22,7 @@ class CreateRepositories < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
+    add_index(:repositories, :repository_id, unique: true)
     add_index(:repositories, :user_id)
 
     add_foreign_key(:repositories, :users, column: :user_id, primary_key: :id)

@@ -21,7 +21,7 @@ module Api
         attr_reader :params
 
         def insert_all
-          Repository.insert_all(params[:repositories])
+          Repository.upsert_all(params[:repositories], unique_by: :repository_id)
         end
       end
     end
