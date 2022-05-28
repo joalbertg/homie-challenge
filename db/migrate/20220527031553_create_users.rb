@@ -7,7 +7,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.integer(:github_id, limit: 8, null: false)
       t.string(:url, null: false)
       t.string(:name, null: false)
-      t.string(:email, null: false)
+      t.string(:email)
       t.string(:avatar_url)
 
       t.timestamps

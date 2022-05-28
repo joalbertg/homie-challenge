@@ -44,7 +44,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_27_032836) do
     t.bigint "github_id", null: false
     t.string "url", null: false
     t.string "name", null: false
-    t.string "email", null: false
+    t.string "email"
     t.string "avatar_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
