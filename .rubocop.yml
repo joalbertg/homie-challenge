@@ -61,6 +61,7 @@ Style/DocumentationMethod:
 
 Style/StringHashKeys:
   Exclude:
+    - config/routes.rb
     - spec/requests/api/v1/users/get_spec.rb
     - spec/services/api/v1/github/search_repositories_service_spec.rb
 

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  get 'health_check', to: proc { [200, {}, ['success']] }
+  get 'health_check', to: proc { [200, { 'content-type' => 'application/json' }, [{ success: :ok }.to_json]] }
 
   namespace :api do
     namespace :v1 do
@@ -27,4 +27,8 @@ Rails.application.routes.draw do
       get 'repositories/search'
     end
   end
+
+  match(
+    '*path', to: proc { [404, { 'content-type' => 'application/json' }, [{ error: :not_found }.to_json]] }, via: :all
+  )
 end
