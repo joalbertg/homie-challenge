@@ -2,7 +2,9 @@
 
 # Homie Backend Challenge
 
-Heroku: [health_check](https://homie-technical-challenge.herokuapp.com/health_check)
+- Heroku: [health_check](https://homie-technical-challenge.herokuapp.com/health_check)
+- Swagger: [api-doc](https://homie-technical-challenge.herokuapp.com/api-docs/index.html)
+- Sidekiq: [sidekiq](https://homie-technical-challenge.herokuapp.com/sidekiq)
 
 ## Entity-relationship model
 

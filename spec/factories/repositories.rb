@@ -3,12 +3,12 @@
 FactoryBot.define do
   factory :repository do
     id { '7ed34375-868f-4904-ac39-dfb9349ff841' }
-    repository_id { 132935648 }
+    repository_id { 132_935_648 }
     name { 'boysenberry-repo-1' }
     full_name { 'octocat/boysenberry-repo-1' }
     html_url { 'https://github.com/octocat/boysenberry-repo-1' }
     description { 'Testing' }
-    fork { true }
+    fork { 't' }
     forks_url { 'https://api.github.com/repos/octocat/git-consortium/forks' }
     git_url { 'git://github.com/octocat/git-consortium.git' }
     ssh_url { 'git@github.com:octocat/git-consortium.git' }

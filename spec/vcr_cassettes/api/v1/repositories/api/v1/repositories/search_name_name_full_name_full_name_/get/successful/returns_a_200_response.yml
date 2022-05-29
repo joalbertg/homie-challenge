@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.github.com/users//repos
+    uri: https://api.github.com/users/
     body:
       encoding: US-ASCII
       string: ''
@@ -23,7 +23,7 @@ http_interactions:
       Server:
       - GitHub.com
       Date:
-      - Sun, 29 May 2022 17:09:52 GMT
+      - Sun, 29 May 2022 16:42:03 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -37,11 +37,11 @@ http_interactions:
       X-Ratelimit-Limit:
       - '5000'
       X-Ratelimit-Remaining:
-      - '4943'
+      - '4980'
       X-Ratelimit-Reset:
       - '1653844275'
       X-Ratelimit-Used:
-      - '57'
+      - '20'
       X-Ratelimit-Resource:
       - core
       Access-Control-Expose-Headers:
@@ -66,9 +66,9 @@ http_interactions:
       Vary:
       - Accept-Encoding, Accept, X-Requested-With
       X-Github-Request-Id:
-      - F7F2:724A:112ADD:670F42:6293A8E0
+      - F72D:40DE:AC4A8A:1766148:6293A25B
     body:
       encoding: ASCII-8BIT
       string: '{"message":"Not Found","documentation_url":"https://docs.github.com/rest"}'
-  recorded_at: Sun, 29 May 2022 17:09:52 GMT
+  recorded_at: Sun, 29 May 2022 16:42:03 GMT
 recorded_with: VCR 6.1.0

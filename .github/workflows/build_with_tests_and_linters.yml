@@ -67,8 +67,8 @@ jobs:
       - name: checkout project
         uses: actions/checkout@v3
         with:
-          # fetch all history for all tags and branches
-          fetch-depth: 0
+          # 0 fetch all history for all tags and branches
+          fetch-depth: 1
       - name: download ruby and run bundle
         uses: ruby/setup-ruby@v1
         with:
@@ -82,6 +82,13 @@ jobs:
           RAILS_ENV: test
         run: |
           bin/rails db:setup
+      - name: install redis
+        uses: shogo82148/actions-setup-redis@v1
+        with:
+          redis-version: '7.x'
+          redis-port: '6379'
+          auto-start: true
+      - run: redis-cli ping
 
       - name: run rspec
         env:

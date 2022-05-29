@@ -1,0 +1,86 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.github.com/users/yknx4
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.7.1
+      Authorization:
+      - Bearer bb06832b63a8639e04020967d048940feff31658
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Sun, 29 May 2022 14:33:06 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Cache-Control:
+      - private, max-age=60, s-maxage=60
+      Vary:
+      - Accept, Authorization, Cookie, X-GitHub-OTP
+      - Accept-Encoding, Accept, X-Requested-With
+      Etag:
+      - W/"d7fda0178ff830fe84c4cc1260283d2a597a0a3d27d4e822a311801eb7ce7599"
+      Last-Modified:
+      - Wed, 18 May 2022 22:31:21 GMT
+      X-Oauth-Scopes:
+      - repo, workflow
+      X-Accepted-Oauth-Scopes:
+      - ''
+      Github-Authentication-Token-Expiration:
+      - 2022-06-24 17:13:39 UTC
+      X-Github-Media-Type:
+      - github.v3; format=json
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4980'
+      X-Ratelimit-Reset:
+      - '1653835425'
+      X-Ratelimit-Used:
+      - '20'
+      X-Ratelimit-Resource:
+      - core
+      Access-Control-Expose-Headers:
+      - ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining,
+        X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes,
+        X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO,
+        X-GitHub-Request-Id, Deprecation, Sunset
+      Access-Control-Allow-Origin:
+      - "*"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Frame-Options:
+      - deny
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - '0'
+      Referrer-Policy:
+      - origin-when-cross-origin, strict-origin-when-cross-origin
+      Content-Security-Policy:
+      - default-src 'none'
+      X-Github-Request-Id:
+      - F420:5FAE:F71C6D:1CF74BA:62938422
+    body:
+      encoding: ASCII-8BIT
+      string: '{"login":"yknx4","id":1848186,"node_id":"MDQ6VXNlcjE4NDgxODY=","avatar_url":"https://avatars.githubusercontent.com/u/1848186?v=4","gravatar_id":"","url":"https://api.github.com/users/yknx4","html_url":"https://github.com/yknx4","followers_url":"https://api.github.com/users/yknx4/followers","following_url":"https://api.github.com/users/yknx4/following{/other_user}","gists_url":"https://api.github.com/users/yknx4/gists{/gist_id}","starred_url":"https://api.github.com/users/yknx4/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/yknx4/subscriptions","organizations_url":"https://api.github.com/users/yknx4/orgs","repos_url":"https://api.github.com/users/yknx4/repos","events_url":"https://api.github.com/users/yknx4/events{/privacy}","received_events_url":"https://api.github.com/users/yknx4/received_events","type":"User","site_admin":false,"name":"Ale
+        Ornelas Figueroa","company":"@shopify","blog":"http://www.ale.world","location":"Vancouver","email":"jade@ornelas.io","hireable":true,"bio":"Sr
+        Production Engineer at @Shopify \r\nFormer Devops Leader at @HeyHomie\r\nFormer
+        Devops Engineer at @gitamv","twitter_username":null,"public_repos":196,"public_gists":32,"followers":42,"following":11,"created_at":"2012-06-13T21:56:55Z","updated_at":"2022-05-18T22:31:21Z"}'
+  recorded_at: Sun, 29 May 2022 14:33:06 GMT
+recorded_with: VCR 6.1.0

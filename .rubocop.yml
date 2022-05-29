@@ -8,15 +8,15 @@ AllCops:
   TargetRubyVersion: 3.1.1
   EnabledByDefault: true
   Exclude:
-    - 'Rakefile'
+    - Rakefile
     - 'bin/*'
-    - 'config.ru'
-    - 'config/**/*.rb'
+    - config.ru
+    - config/**/*.rb
     - '*.yml'
     - 'tmp/**/*'
     - '.*'
-    - 'db/schema.rb'
-    - 'spec/swagger_helper.rb'
+    - db/schema.rb
+    - spec/swagger_helper.rb
 
 Rails:
   Enabled: true
@@ -26,10 +26,15 @@ Rails/UnknownEnv:
     - production
     - development
     - test
-    - demo
 
 RSpec/ExampleLength:
   Max: 10
+
+RSpec/EmptyExampleGroup:
+  Exclude:
+    - spec/requests/api/v1/repositories_spec.rb
+    - spec/requests/api/v1/users_spec.rb
+    - spec/requests/api/v1/users/get_spec.rb
 
 Metrics/MethodLength:
   Enabled: false
@@ -37,13 +42,13 @@ Metrics/MethodLength:
 
 Metrics/BlockLength:
   Exclude:
-    - 'Rakefile'
+    - Rakefile
     - '**/*.rake'
-    - "config/environments/production.rb"
-    - "config/environments/development.rb"
-    - "config/environments/test.rb"
-    - "config/routes.rb"
-    - "spec/**/*.rb"
+    - config/environments/production.rb
+    - config/environments/development.rb
+    - config/environments/test.rb
+    - config/routes.rb
+    - 'spec/**/*.rb'
 
 Style/Copyright:
   Enabled: false
@@ -53,6 +58,11 @@ Style/Documentation:
 
 Style/DocumentationMethod:
   Enabled: false
+
+Style/StringHashKeys:
+  Exclude:
+    - spec/requests/api/v1/users/get_spec.rb
+    - spec/services/api/v1/github/search_repositories_service_spec.rb
 
 Layout/MultilineMethodArgumentLineBreaks:
   Enabled: false
@@ -1090,6 +1100,9 @@ RSpec/AlignLeftLetBrace:
 
 RSpec/MultipleMemoizedHelpers:
   Max: 10
+
+RSpec/MultipleExpectations:
+  Max: 2
 
 Rails/HasAndBelongsToMany:
   Enabled: false

@@ -12,7 +12,7 @@ RSpec.describe(Api::V1::Github::SearchRepositoriesService, type: :service, vcr: 
     context 'when it is success' do
       describe 'with valid username' do
         subject(:repositories) { repositories_response.payload }
-        
+
         let(:repositories_response) { described_class.call(connection:, username: 'octocat', options:) }
 
         it 'has correct types' do
@@ -23,11 +23,10 @@ RSpec.describe(Api::V1::Github::SearchRepositoriesService, type: :service, vcr: 
 
         it 'has all the right attributes' do
           expect(repositories.first).to include(
-            'id' => 132935648,
+            'id' => 132_935_648,
             'name' => 'boysenberry-repo-1',
             'full_name' => 'octocat/boysenberry-repo-1',
             'html_url' => 'https://github.com/octocat/boysenberry-repo-1',
-            'fork' => true,
             'forks_count' => 9
           )
         end

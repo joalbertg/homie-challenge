@@ -5,7 +5,8 @@ module Api
     class RepositoriesController < ApplicationController
       def index
         Repositories::InsertAllUseCase.call(user:)
-        render(json: user.repositories)
+
+        render(json: { repositories: user.repositories })
       end
 
       def search
@@ -16,7 +17,7 @@ module Api
         )
         repositories = response.payload if response.success?
 
-        render(json: repositories)
+        render(json: { repositories: })
       end
 
       private

@@ -5,10 +5,15 @@ module Api
     class UsersController < ApplicationController
       def show
         response = Users::FindOrCreateUseCase.call(username: user_params)
-        user = response.payload if response.success?
 
-        Repositories::SearchAndInsertAllJob.perform_async(user.id)
-        render json: user.as_json
+        if response.success?
+          user = response.payload
+          Repositories::SearchAndInsertAllJob.perform_async(user.id)
+
+          render(json: user.as_json)
+        else
+          render(json: { error: response.error }, status: :not_found)
+        end
       end
 
       private

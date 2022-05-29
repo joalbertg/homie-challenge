@@ -1,0 +1,225 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/repositories/search?name={name}&full_name={full_name}":
+    parameters:
+    - name: name
+      in: path
+      description: repository name
+      example: boysenberry-repo-1
+      required: true
+      schema:
+        type: string
+    - name: full_name
+      in: path
+      description: repository name with username
+      example: octocat/boysenberry-repo-1
+      required: true
+      schema:
+        type: string
+    get:
+      summary: search repository
+      tags:
+      - Repositories
+      description: Search repositories by name and full_name
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/repositories"
+  "/api/v1/users/{user_id}/repositories/search?name={name}&full_name={full_name}":
+    parameters:
+    - name: user_id
+      in: path
+      description: user_id
+      example: octocat
+      required: true
+      schema:
+        type: string
+    - name: name
+      in: path
+      description: repository name
+      example: boysenberry-repo-1
+      required: true
+      schema:
+        type: string
+    - name: full_name
+      in: path
+      description: repository name with username
+      example: octocat/boysenberry-repo-1
+      required: true
+      schema:
+        type: string
+    get:
+      summary: search repository
+      tags:
+      - Users
+      description: Search User repositories by name and full_name
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/repositories"
+  "/api/v1/users/{user_id}/repositories":
+    parameters:
+    - name: user_id
+      in: path
+      description: user_id
+      example: octocat
+      required: true
+      schema:
+        type: string
+    get:
+      summary: list repositories
+      tags:
+      - Users
+      description: List User Repositories
+      responses:
+        '200':
+          description: successful
+  "/api/v1/users/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      example: octocat
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show user
+      tags:
+      - Users
+      description: Show a github profile
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 484c5407-229f-45b7-8a60-a0fbb1901d74
+                  login:
+                    type: string
+                    example: octocat
+                  github_id:
+                    type: integer
+                    example: 583231
+                  url:
+                    type: string
+                    example: https://github.com/octocat
+                  name:
+                    type: string
+                    example: The Octocat
+                  email:
+                    type: string
+                    example: octocat@github.com
+                  avatar_url:
+                    type: string
+                    example: https://avatars.githubusercontent.com/u/583231?v=4
+                  created_at:
+                    type: string
+                    example: '2022-05-29T03:58:39.182Z'
+                  updated_at:
+                    type: string
+                    example: '2022-05-29T03:58:39.182Z'
+                required:
+                - id
+                - login
+                - github_id
+                - url
+                - name
+                - created_at
+                - updated_at
+        '404':
+          description: user not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "#<Api::V1::Github::FindUserService:0x00007f0292eacf18>"
+                required:
+                - error
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
+- url: https://{productionHost}
+  variables:
+    productionHost:
+      default: homie-technical-challenge.herokuapp.com
+components:
+  schemas:
+    repositories:
+      type: object
+      properties:
+        repositories:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                example: 7ed34375-868f-4904-ac39-dfb9349ff841
+              user_id:
+                type: string
+                example: 484c5407-229f-45b7-8a60-a0fbb1901d74
+              repository_id:
+                type: integer
+                example: 132935648
+              name:
+                type: string
+                example: boysenberry-repo-1
+              full_name:
+                type: string
+                example: octocat/boysenberry-repo-1
+              html_url:
+                type: string
+                example: https://github.com/octocat/boysenberry-repo-1
+              description:
+                type: string
+                example: Testing
+              fork:
+                type: string
+                example: t
+              forks_url:
+                type: string
+                example: https://api.github.com/repos/octocat/git-consortium/forks
+              git_url:
+                type: string
+                example: git://github.com/octocat/git-consortium.git
+              ssh_url:
+                type: string
+                example: git@github.com:octocat/git-consortium.git
+              clone_url:
+                type: string
+                example: https://github.com/octocat/git-consortium.git
+              language:
+                type: string
+                example: ruby
+              allow_forking:
+                type: boolean
+                example: true
+              forks_count:
+                type: integer
+                example: 9
+              visibility:
+                type: string
+                example: public
+              default_branch:
+                type: string
+                example: master
