@@ -5,6 +5,7 @@ module Api
     class RepositoriesController < ApplicationController
       def index
         Repositories::InsertAllUseCase.call(user:)
+        raise(ActiveRecord::RecordNotFound) if user.nil?
 
         render(json: { repositories: user.repositories })
       end
@@ -15,9 +16,9 @@ module Api
           name: repository_params[:name],
           full_name: repository_params[:full_name]
         )
-        repositories = response.payload if response.success?
+        raise(response.error) unless response.success?
 
-        render(json: { repositories: })
+        render(json: { repositories: response.payload })
       end
 
       private
