@@ -27,7 +27,7 @@ module Api
         params.permit(:user_id, :name, :full_name)
       end
 
-      def user_param
+      def user_params
         return params.require(:user_id) unless params[:action] == 'search'
 
         repository_params[:user_id]
@@ -36,8 +36,14 @@ module Api
       def user
         return @user if defined?(@user)
 
-        response = Users::FindOrCreateUseCase.call(username: user_param)
-        @user = response.payload if response.success?
+        response = MemoryStorage::Users::FindOrCreateUseCase.call(username: user_params)
+        @user = hash_to_active_record(response.payload) if response.success?
+      end
+
+      def hash_to_active_record(user_hash)
+        return user_hash if user_hash.is_a?(User)
+
+        User.new(JSON.parse(user_hash.to_json))
       end
     end
   end
