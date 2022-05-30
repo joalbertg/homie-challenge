@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateRepositories < ActiveRecord::Migration[7.0]
   def change
     create_table(:repositories, id: :uuid, comment: 'table of github repositories') do |t|
@@ -7,7 +9,7 @@ class CreateRepositories < ActiveRecord::Migration[7.0]
       t.boolean(:private, null: false, default: false)
       t.string(:html_url, null: false)
       t.string(:description)
-      t.string(:fork, null: false, default: 0)
+      t.string(:fork, null: false, default: 'f')
       t.string(:forks_url)
       t.string(:git_url)
       t.string(:ssh_url)

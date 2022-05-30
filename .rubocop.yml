@@ -40,6 +40,10 @@ Metrics/MethodLength:
   Enabled: false
   Max: 15
 
+Metrics/AbcSize:
+  Exclude:
+    - db/migrate/20220527032836_create_repositories.rb
+
 Metrics/BlockLength:
   Exclude:
     - Rakefile
@@ -1110,7 +1114,11 @@ Rails/HasAndBelongsToMany:
 
 Rails/EnvironmentVariableAccess:
   Exclude:
-   - app/singletons/redis_singleton.rb
+    - app/singletons/redis_singleton.rb
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - app/services/api/v1/repositories/insert_all_service.rb
 
 RSpec/NestedGroups:
   Max: 4

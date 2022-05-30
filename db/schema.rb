@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_27_032836) do
     t.boolean "private", default: false, null: false
     t.string "html_url", null: false
     t.string "description"
-    t.string "fork", default: "0", null: false
+    t.string "fork", default: "f", null: false
     t.string "forks_url"
     t.string "git_url"
     t.string "ssh_url"

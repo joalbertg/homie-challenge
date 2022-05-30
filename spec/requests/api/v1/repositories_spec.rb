@@ -3,6 +3,10 @@
 require 'swagger_helper'
 
 RSpec.describe('api/v1/repositories', type: :request, vcr: { record: :none }) do
+  before do
+    RedisSingleton.redis.flushall
+  end
+
   path '/api/v1/repositories/search?name={name}&full_name={full_name}' do
     parameter(name: 'name', in: :path, type: :string, description: 'repository name', example: 'boysenberry-repo-1')
     parameter(

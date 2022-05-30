@@ -21,7 +21,16 @@ module Api
         attr_reader :params
 
         def insert_all
-          Repository.upsert_all(params[:repositories], unique_by: :repository_id)
+          Repository.upsert_all(check_fields!, unique_by: :repository_id)
+        end
+
+        def check_fields!
+          params[:repositories].map do |repository|
+            unless repository[:fork].is_a?(String)
+              repository[:fork] = repository[:fork] ? 't' : 'f'
+            end
+            repository
+          end
         end
       end
     end
