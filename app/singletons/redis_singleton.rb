@@ -14,7 +14,7 @@ class RedisSingleton
     uri = URI.parse(ENV.fetch('REDIS_URL', 'redis://localhost:6379/0'))
     @redis = Redis.new(host: uri.host, port: uri.port, password: uri.password)
 
-    Rails.logger.info("Ping: #{redis.ping}")
+    Rails.logger.info("PING: #{redis.ping}")
   rescue
     Rails.logger.error(error.message)
     raise(error)
