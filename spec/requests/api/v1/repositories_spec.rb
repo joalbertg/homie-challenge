@@ -7,10 +7,12 @@ RSpec.describe('api/v1/repositories', type: :request, vcr: { record: :none }) do
     RedisSingleton.redis.flushall
   end
 
-  path '/api/v1/repositories/search?name={name}&full_name={full_name}' do
-    parameter(name: 'name', in: :path, type: :string, description: 'repository name', example: 'boysenberry-repo-1')
+  path '/api/v1/repositories/search' do
+    parameter(name: 'page', in: :query, type: :integer, description: 'page', example: 1)
+    parameter(name: 'per_page', in: :query, type: :integer, description: 'per page', example: 2)
+    parameter(name: 'name', in: :query, type: :string, description: 'repository name', example: 'boysenberry-repo-1')
     parameter(
-      name: 'full_name', in: :path, type: :string, description: 'repository name with username',
+      name: 'full_name', in: :query, type: :string, description: 'repository name with username',
       example: 'octocat/boysenberry-repo-1'
     )
 
@@ -22,6 +24,8 @@ RSpec.describe('api/v1/repositories', type: :request, vcr: { record: :none }) do
       response(200, 'successful') do
         let(:name) { 'boysenberry' }
         let(:full_name) { 'berry-repo' }
+        let(:page) { 1 }
+        let(:per_page) { 2 }
 
         schema('$ref': '#/components/schemas/repositories')
 
@@ -30,11 +34,14 @@ RSpec.describe('api/v1/repositories', type: :request, vcr: { record: :none }) do
     end
   end
 
-  path '/api/v1/users/{user_id}/repositories/search?name={name}&full_name={full_name}' do
+  path '/api/v1/users/{user_id}/repositories/search' do
     parameter(name: 'user_id', in: :path, type: :string, description: 'user_id', example: 'octocat')
-    parameter(name: 'name', in: :path, type: :string, description: 'repository name', example: 'boysenberry-repo-1')
+
+    parameter(name: 'page', in: :query, type: :integer, description: 'page', example: 1)
+    parameter(name: 'per_page', in: :query, type: :integer, description: 'per page', example: 2)
+    parameter(name: 'name', in: :query, type: :string, description: 'repository name', example: 'boysenberry-repo-1')
     parameter(
-      name: 'full_name', in: :path, type: :string, description: 'repository name with username',
+      name: 'full_name', in: :query, type: :string, description: 'repository name with username',
       example: 'octocat/boysenberry-repo-1'
     )
 
@@ -47,6 +54,8 @@ RSpec.describe('api/v1/repositories', type: :request, vcr: { record: :none }) do
         let(:user_id) { 'octocat' }
         let(:name) { 'boysenberry' }
         let(:full_name) { 'berry-repo' }
+        let(:page) { 1 }
+        let(:per_page) { 2 }
 
         schema('$ref': '#/components/schemas/repositories')
 
@@ -58,6 +67,9 @@ RSpec.describe('api/v1/repositories', type: :request, vcr: { record: :none }) do
   path '/api/v1/users/{user_id}/repositories' do
     parameter(name: 'user_id', in: :path, type: :string, description: 'user_id', example: 'octocat')
 
+    parameter(name: 'page', in: :query, type: :integer, description: 'page', example: 1)
+    parameter(name: 'per_page', in: :query, type: :integer, description: 'per page', example: 2)
+
     get('list repositories') do
       tags('Users')
       description('List User Repositories')
@@ -65,6 +77,8 @@ RSpec.describe('api/v1/repositories', type: :request, vcr: { record: :none }) do
 
       response(200, 'successful') do
         let(:user_id) { 'octocat' }
+        let(:page) { 1 }
+        let(:per_page) { 2 }
 
         run_test!
       end
