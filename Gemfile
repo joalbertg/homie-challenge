@@ -55,6 +55,7 @@ gem 'sidekiq', '~> 6.4', '>= 6.4.1'
 
 # Pagination
 # gem 'pagy', '~> 3.11'
+gem 'kaminari', '~> 1.2.2'
 
 # Env Variables
 gem 'figaro', '~> 1.2'

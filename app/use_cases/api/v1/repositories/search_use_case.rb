@@ -21,10 +21,20 @@ module Api
         attr_reader :params
 
         def search_repositories
-          response = SearchService.call(user_id: params[:user_id], name: params[:name], full_name: params[:full_name])
+          response = SearchService.call(build_params)
           raise(response.error) unless response.success?
 
           response.payload
+        end
+
+        def build_params
+          {
+            user_id: params[:user_id],
+            name: params[:name],
+            full_name: params[:full_name],
+            page: params[:page],
+            per_page: params[:per_page]
+          }
         end
       end
     end

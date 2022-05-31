@@ -11,7 +11,7 @@ module Api
         end
 
         def call
-          response(success: true, payload: search_repositories)
+          response(success: true, payload: search_repositories.page(params[:page]).per(params[:per_page]))
         rescue
           response(error: StandardError.new(self))
         end
