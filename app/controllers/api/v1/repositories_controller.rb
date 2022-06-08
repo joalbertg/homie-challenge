@@ -39,13 +39,7 @@ module Api
         return @user if defined?(@user)
 
         response = MemoryStorage::Users::FindOrCreateUseCase.call(username: user_params)
-        @user = hash_to_active_record(response.payload) if response.success?
-      end
-
-      def hash_to_active_record(user_hash)
-        return user_hash if user_hash.is_a?(User)
-
-        User.new(JSON.parse(user_hash.to_json))
+        @user = response.payload if response.success?
       end
     end
   end

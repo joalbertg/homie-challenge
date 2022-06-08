@@ -10,7 +10,7 @@ module Api
           user = response.payload
 
           Repositories::SearchAndInsertAllJob.perform_async(user['id'])
-          render(json: user.as_json)
+          render(json: user)
         else
           render(json: { error: response.error }, status: :not_found)
         end
