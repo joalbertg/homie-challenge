@@ -25,25 +25,27 @@ module Api
             user = find_user
             return create_user if user.nil?
 
-            load(user)
+            user
           end
 
           def find_user
             response = MemoryStorage::ReadUseCase.call(key: build_key)
             raise(response.error) unless response.success?
+            return if response.payload.nil?
 
-            Rails.logger.info('rescued from cache...') unless response.payload.nil?
-            response.payload
+            hash_user = load(response.payload)
+            Rails.logger.info('rescued from cache...')
+
+            hash_to_active_record(hash_user)
           end
 
           def create_user
             response = Api::V1::Users::FindOrCreateUseCase.call(username: params[:username])
             raise(response.error) unless response.success?
 
-            user = response.payload
-            MemoryStorage::WriteWithTtlUseCase.call { |cache| cache.params = build_params(user) }
+            MemoryStorage::WriteWithTtlUseCase.call { |cache| cache.params = build_params(response.payload) }
             Rails.logger.info('caching...')
-            user
+            find_user
           end
 
           def build_params(user)
@@ -69,6 +71,10 @@ module Api
             raise(response.error) unless response.success?
 
             response.payload
+          end
+
+          def hash_to_active_record(user_hash)
+            User.new(JSON.parse(user_hash.to_json))
           end
         end
       end
