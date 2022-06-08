@@ -17,12 +17,12 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: <%= ENV.fetch('DATABASE_HOST') { 'db' } %>
-  username: <%= ENV.fetch('DATABASE_USERNAME') { 'postgres' } %>
-  password: <%= ENV.fetch('DATABASE_PASSWORD') { 'postgres' } %>
+  host: <%= Rails.application.credentials.fetch(:database_host, 'db') %>
+  username: <%= Rails.application.credentials.fetch(:database_username, 'postgres') %>
+  password: <%= Rails.application.credentials.fetch(:database_password, 'postgres') %>
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
+  pool: <%= Rails.application.credentials.fetch(:rails_max_threads, 5) %>
 
 development:
   <<: *default

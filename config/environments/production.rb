@@ -15,11 +15,11 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local = false
 
   # Ensures that a master key has been made available in either ENV['RAILS_MASTER_KEY']
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
-  # config.require_master_key = true
+  config.require_master_key = true
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
@@ -48,7 +48,7 @@ Rails.application.configure do
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -78,7 +78,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   if ENV['RAILS_LOG_TO_STDOUT'].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
@@ -110,13 +110,16 @@ Rails.application.configure do
     config.lograge.enabled = true
     config.lograge.base_controller_class = 'ActionController::API'
     config.lograge.formatter = Lograge::Formatters::Json.new if ENV['JSON_LOG'].present?
-    config.lograge.custom_options = lambda do |event|
-      exceptions = %w[controller action format id]
-      {
-        params: event.payload[:params].except(*exceptions),
-        exception: event.payload[:exception], # ["ExceptionClass", "the message"]
-        exception_object: event.payload[:exception_object] # the exception instance
-      }
-    end
+    config.lograge.custom_options =
+      lambda do |event|
+        exceptions = %w[controller action format id]
+        {
+          params: event.payload[:params].except(*exceptions),
+          # ["ExceptionClass", "the message"]
+          exception: event.payload[:exception],
+          # the exception instance
+          exception_object: event.payload[:exception_object]
+        }
+      end
   end
 end
