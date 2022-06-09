@@ -4,7 +4,7 @@ module Api
   module V1
     class UsersController < ApplicationController
       def show
-        response = MemoryStorage::Users::FindOrCreateUseCase.call(username: user_params)
+        response = System::MemoryStorage::Users::FindOrCreateUseCase.call(username: user_params)
 
         if response.success?
           user = response.payload

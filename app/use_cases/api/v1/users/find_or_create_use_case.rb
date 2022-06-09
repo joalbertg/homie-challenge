@@ -29,7 +29,7 @@ module Api
         end
 
         def find_github_user
-          response = Users::FindUseCase.call(username: params[:username])
+          response = System::Users::FindUseCase.call(username: params[:username])
           raise(response.error) unless response.success?
 
           response.payload
@@ -43,7 +43,7 @@ module Api
         end
 
         def create_user
-          response = CreateUseCase.call(user: github_user)
+          response = System::Users::CreateUseCase.call(user: github_user)
           raise(response.error) unless response.success?
 
           response.payload
