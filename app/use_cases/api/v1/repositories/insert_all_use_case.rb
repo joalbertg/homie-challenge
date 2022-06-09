@@ -61,7 +61,7 @@ module Api
               **urls(repository),
               **timestamps(repository),
               **extras(repository)
-            }
+            }.symbolize_keys
           end
         end
 
@@ -73,39 +73,19 @@ module Api
         end
 
         def details(repository)
-          {
-            name: repository['name'],
-            full_name: repository['full_name'],
-            description: repository['description'],
-            language: repository['language']
-          }
+          repository.slice(*%w[name full_name description language])
         end
 
         def urls(repository)
-          {
-            html_url: repository['html_url'],
-            forks_url: repository['forks_url'],
-            git_url: repository['git_url'],
-            ssh_url: repository['ssh_url'],
-            clone_url: repository['clone_url']
-          }
+          repository.slice(*%w[html_url forks_url git_url ssh_url clone_url])
         end
 
         def timestamps(repository)
-          {
-            created_at: repository['created_at'],
-            updated_at: repository['updated_at']
-          }
+          repository.slice(*%w[created_at updated_at])
         end
 
         def extras(repository)
-          {
-            fork: repository['fork'],
-            allow_forking: repository['allow_forking'],
-            forks_count: repository['forks_count'],
-            visibility: repository['visibility'],
-            default_branch: repository['default_branch']
-          }
+          repository.slice(*%w[fork allow_forking forks_count visibility default_branch])
         end
       end
     end
