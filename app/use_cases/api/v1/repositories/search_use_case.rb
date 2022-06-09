@@ -30,10 +30,7 @@ module Api
         def build_params
           {
             user_id: params[:user_id],
-            name: params[:name],
-            full_name: params[:full_name],
-            page: params[:page],
-            per_page: params[:per_page]
+            **params.slice(*%w[name full_name page per_page]).symbolize_keys
           }
         end
       end

@@ -11,13 +11,7 @@ module Api
       end
 
       def search
-        response = Repositories::SearchUseCase.call(
-          user_id: user&.id,
-          name: repository_params[:name],
-          full_name: repository_params[:full_name],
-          page: repository_params[:page],
-          per_page: repository_params[:per_page]
-        )
+        response = Repositories::SearchUseCase.call(user_id: user&.id, **repository_params.as_json(except: :user_id))
         raise(response.error) unless response.success?
 
         render(json: { repositories: response.payload })
