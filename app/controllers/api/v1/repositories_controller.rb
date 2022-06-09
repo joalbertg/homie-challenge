@@ -38,7 +38,7 @@ module Api
       def user
         return @user if defined?(@user)
 
-        response = MemoryStorage::Users::FindOrCreateUseCase.call(username: user_params)
+        response = System::MemoryStorage::Users::FindOrCreateUseCase.call(username: user_params)
         @user = response.payload if response.success?
       end
     end
