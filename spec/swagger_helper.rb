@@ -24,18 +24,18 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
-          url: 'http://{defaultHost}',
-          variables: {
-            defaultHost: {
-              default: 'localhost:3000'
-            }
-          }
-        },
-        {
           url: 'https://{productionHost}',
           variables: {
             productionHost: {
               default: 'homie-technical-challenge.herokuapp.com'
+            }
+          }
+        },
+        {
+          url: 'http://{defaultHost}',
+          variables: {
+            defaultHost: {
+              default: 'localhost:3000'
             }
           }
         }

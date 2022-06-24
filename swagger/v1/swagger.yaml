@@ -4,7 +4,7 @@ info:
   title: API V1
   version: v1
 paths:
-  "/api/v1/repositories/search?name={name}&full_name={full_name}&page={page}&per_page={per_page}":
+  "/api/v1/repositories/search":
     parameters:
     - name: page
       in: query
@@ -42,7 +42,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/repositories"
-  "/api/v1/users/{user_id}/repositories/search?name={name}&full_name={full_name}":
+  "/api/v1/users/{user_id}/repositories/search":
     parameters:
     - name: user_id
       in: path
@@ -186,14 +186,14 @@ paths:
                 required:
                 - error
 servers:
-- url: http://{defaultHost}
-  variables:
-    defaultHost:
-      default: localhost:3000
 - url: https://{productionHost}
   variables:
     productionHost:
       default: homie-technical-challenge.herokuapp.com
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
 components:
   schemas:
     repositories:
