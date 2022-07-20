@@ -3,7 +3,7 @@ LABEL maintainer="Joalbert Andrés González <joalbertgonzalez@gmail.com>"
 LABEL version="0.0.1"
 
 # Packages needed to get Rails running in Alpine.
-ENV BUILD_PACKAGES="build-base" \
+ENV BUILD_PACKAGES="build-base libc6-compat" \
     DEV_PACKAGES="tzdata less" \
     DB_PACKAGES="postgresql-dev postgresql-client"
 
